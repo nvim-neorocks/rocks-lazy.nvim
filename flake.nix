@@ -13,6 +13,13 @@
 
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
 
+    rocks-nvim-flake = {
+      url = "github:nvim-neorocks/rocks.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lz-n-flake.url = "github:nvim-neorocks/lz.n";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     pre-commit-hooks = {
@@ -26,6 +33,8 @@
     nixpkgs,
     neorocks,
     gen-luarc,
+    rocks-nvim-flake,
+    lz-n-flake,
     flake-parts,
     pre-commit-hooks,
     ...
@@ -46,9 +55,11 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
+            rocks-nvim-flake.overlays.default
             self.overlays.default
             neorocks.overlays.default
             gen-luarc.overlays.default
+            lz-n-flake.overlays.default
           ];
         };
 
@@ -57,6 +68,7 @@
           neodev-types = "nightly";
           plugins = with pkgs.lua51Packages; [
             rocks-nvim
+            lz-n
           ];
         };
 
@@ -86,20 +98,19 @@
             ${pre-commit-check.shellHook}
             ln -fs ${pkgs.luarc-to-json luarc} .luarc.json
           '';
-          buildInputs = with pre-commit-hooks.packages.${system};
-            [
-              alejandra
-              lua-language-server
-              stylua
-              luacheck
-              editorconfig-checker
-            ]
+          buildInputs =
+            self.checks.${system}.pre-commit-check.enabledPackages
             ++ (with pkgs; [
-              (lua5_1.withPackages (ps: with ps; [luarocks dkjson]))
+              busted-nightly
+              lua-language-server
             ]);
         };
       in {
-        packages.default = pkgs.lua51Packages.rocks-lazy-nvim;
+        packages = rec {
+          default = neovim-with-rocks;
+          neovim-with-rocks = pkgs.neovim-with-rocks;
+          # rocks-lazy-nvim = pkgs.lua51Packages.rocks-lazy-nvim;
+        };
 
         devShells = {
           default = devShell;
@@ -114,7 +125,7 @@
         };
       };
       flake = {
-        overlays.default = import ./nix/overlay.nix {inherit self;};
+        overlays.default = import ./nix/overlay.nix {inherit self rocks-nvim-flake;};
       };
     };
 }

@@ -6,7 +6,7 @@ version = _MODREV .. _SPECREV
 dependencies = {
     "lua >= 5.1",
     "rocks.nvim >= 1.19.0",
-    "lz.n >= 1.0.0",
+    "lz.n >= 1.2.3",
 }
 
 source = {
