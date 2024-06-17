@@ -13,16 +13,16 @@
     }:
       buildLuarocksPackage {
         pname = "lz.n";
-        version = "1.2.3-1";
+        version = "1.2.4-1";
         knownRockspec =
           (fetchurl {
-            url = "mirror://luarocks/lz.n-1.2.3-1.rockspec";
-            sha256 = "1h89pkj8j82wfzqvia54q70y1zpdwkc4j8kifl3xpmyyp4kgibkw";
+            url = "mirror://luarocks/lz.n-1.2.4-1.rockspec";
+            sha256 = "sha256-DR0wr7wczl0P1PEMDSc9w9gU30KstX/rWBjAcx97k7A=";
           })
           .outPath;
         src = fetchzip {
-          url = "https://github.com/nvim-neorocks/lz.n/archive/v1.2.3.zip";
-          sha256 = "1bms3ynha48mar2zfmyd3vlvxz7v3q1v5jxp1dhxwmyxa1dp2vhc";
+          url = "https://github.com/nvim-neorocks/lz.n/archive/v1.2.4.zip";
+          sha256 = "sha256-T4gRlf7GoiPhwvQnvomKLU4y21v1zFm3YcKvsdgkSds=";
         };
         disabled = luaOlder "5.1";
       }) {};

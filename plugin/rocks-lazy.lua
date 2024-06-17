@@ -76,4 +76,16 @@ local specs = vim.iter(user_rocks)
     end)
     :totable()
 
+local lz_spec = vim.g.rocks_nvim and vim.g.rocks_nvim.lz_spec or {}
+if type(lz_spec) == "string" then
+    table.insert(specs, { import = lz_spec })
+else
+    local is_single_plugin_spec = type(lz_spec[1]) == "string"
+    if is_single_plugin_spec then
+        table.insert(specs, lz_spec)
+    elseif vim.islist(lz_spec) then
+        vim.list_extend(specs, lz_spec)
+    end
+end
+
 lz_n.load(specs)

@@ -63,10 +63,10 @@ and you are good to go!
 
 ## :books: Usage
 
+### Via `rocks.toml`
+
 With this module installed, you can add the following fields to a `[plugins]` entry
 in your `rocks.toml`:
-
-### Fields
 
 #### `event`
 
@@ -205,6 +205,56 @@ colorscheme = [
 > cmd = "Telescope"
 > keys = [ { lhs = "<leader>t", rhs = "<CMD>Telescope<CR>" } ]
 > ```
+
+### Lua configuration
+
+If you prefer using Lua for configuration,
+you can use the `vim.g.rocks_nvim.lz_spec` field, which can be
+
+- A [`lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec).
+- A Lua module name (`string`) that contains your plugin spec.
+  See [the `lz.n` documentation](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#structuring-your-plugins).
+
+> [!IMPORTANT]
+>
+> If you use a module name to import your plugin specs
+> and you also use `rocks-config.nvim`,
+> the `lz_spec` module name **must not clash** with the `rocks-config` `plugins_dir`.
+
+Examples:
+
+```lua
+vim.g.rocks_nvim = {
+    -- ...
+    lz_spec = {
+        {
+            "crates.nvim",
+            -- lazy-load when opening a toml file
+            ft = "toml",
+        },
+        {
+            "sweetie.nvim",
+            -- lazy-load when setting the `sweetie` colorscheme
+            colorscheme = "sweetie",
+        },
+    },
+}
+```
+
+Or
+
+```lua
+vim.g.rocks_nvim = {
+    -- ...
+    lz_spec = "lazy_specs", -- Spec modules in nvim/lua/lazy_specs/<spec>.lua
+}
+```
+
+> [!TIP]
+>
+> You can use both `rocks.toml` entries and a Lua config to configure
+> your plugin specs.
+> `rocks-lazy.nvim` will merge the resulting specs.
 
 ## :book: License
 
