@@ -1,8 +1,8 @@
-if vim.g.did_load_rocks_lazy then
+if vim.g.rocks_lazy_nvim_loaded then
     return
 end
 
-vim.g.did_load_rocks_lazy = true
+vim.g.rocks_lazy_nvim_loaded = true
 
 local api = require("rocks.api")
 local lz_n = require("lz.n")
