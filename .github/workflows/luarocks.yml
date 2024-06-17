@@ -28,5 +28,5 @@ jobs:
           version: ${{ env.LUAROCKS_VERSION }}
           test_interpreters: ""
           dependencies: |
-            rocks.nvim >= 1.19.0
+            rocks.nvim >= 1.31.0
             lz.n >= 1.2.4
