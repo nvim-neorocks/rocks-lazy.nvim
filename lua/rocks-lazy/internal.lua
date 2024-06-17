@@ -72,6 +72,7 @@ function rocks_lazy.load()
                 keys = to_lz_n_keys_spec(clone_toml_list(rock.keys)),
                 ft = clone_toml_list(rock.ft),
                 colorscheme = clone_toml_list(rock.colorscheme),
+                load = vim.cmd.packadd,
             }
         end)
         :totable()
