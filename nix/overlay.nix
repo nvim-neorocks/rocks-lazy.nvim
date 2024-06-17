@@ -5,6 +5,8 @@
   name = "rocks-lazy.nvim";
 
   luaPackage-override = luaself: luaprev: {
+    rocks-nvim = rocks-nvim-flake.packages.${final.system}.rocks-nvim;
+
     lz-n = luaself.callPackage ({
       buildLuarocksPackage,
       fetchurl,
