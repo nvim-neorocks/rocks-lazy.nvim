@@ -30,6 +30,3 @@ error("Cannot require a meta module")
 ---@field nowait? boolean
 ---@field ft? string|string[]
 ---@field mode? string|string[]
-
----@type lz.n.Spec
-vim.g.rocks_nvim.lz_spec = vim.g.rocks_nvim.lz_spec

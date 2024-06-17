@@ -75,10 +75,10 @@
         type-check-nightly = pre-commit-hooks.lib.${system}.run {
           src = self;
           hooks = {
-            lua-ls.enable = true;
-          };
-          settings = {
-            lua-ls.config = luarc;
+            lua-ls = {
+              enable = true;
+              settings.configuration = luarc;
+            };
           };
         };
 
@@ -92,7 +92,7 @@
           };
         };
 
-        devShell = pkgs.mkShell {
+        devShell = pkgs.nvim-nightly-tests.overrideAttrs (oa: {
           name = "rocks-lazy.nvim devShell";
           shellHook = ''
             ${pre-commit-check.shellHook}
@@ -100,11 +100,12 @@
           '';
           buildInputs =
             self.checks.${system}.pre-commit-check.enabledPackages
+            ++ oa.buildInputs
             ++ (with pkgs; [
               busted-nightly
               lua-language-server
             ]);
-        };
+        });
       in {
         packages = rec {
           default = neovim-with-rocks;
@@ -121,6 +122,11 @@
           inherit
             pre-commit-check
             type-check-nightly
+            ;
+          inherit
+            (pkgs)
+            nvim-stable-tests
+            nvim-nightly-tests
             ;
         };
       };

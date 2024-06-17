@@ -153,7 +153,11 @@ Where `rocks.lazy.KeysSpec` is a table with the following fields:
 
 > [!NOTE]
 >
-> If unspecified, the default `mode` is `n`.
+> - If unspecified, the default `mode` is `n`.
+> - The `lhs` and `rhs` fields differ
+>   from [the `lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec)[^2].
+
+[^2]: This is because toml tables are stricter than Lua tables.
 
 Examples:
 
@@ -216,46 +220,48 @@ colorscheme = [
 ### Lua configuration
 
 If you prefer using Lua for configuration,
-you can use the `vim.g.rocks_nvim.lz_spec` field, which can be
+you can add a `import` option to your `rocks.toml`:
 
-- A [`lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec).
-- A Lua module name (`string`) that contains your plugin spec.
-  See [the `lz.n` documentation](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#structuring-your-plugins).
+```toml
+[rocks_lazy]
+import = "lazy_specs/"
+```
 
-> [!IMPORTANT]
->
-> If you use a module name to import your plugin specs
-> and you also use `rocks-config.nvim`,
-> the `lz_spec` module name **must not clash** with the `rocks-config` `plugins_dir`.
+This is a subdirectory (relative to `nvim/lua`)
+to search for plugin specs.
+In this example, you can add a `lua/lazy_specs/` directory
+to your `nvim` config, with a lua script for each plugin.
 
-Examples:
-
-```lua
-vim.g.rocks_nvim = {
-    -- ...
-    lz_spec = {
-        {
-            "crates.nvim",
-            -- lazy-load when opening a toml file
-            ft = "toml",
-        },
-        {
-            "sweetie.nvim",
-            -- lazy-load when setting the `sweetie` colorscheme
-            colorscheme = "sweetie",
-        },
-    },
-}
+```sh
+── nvim
+  ├── lua
+  │  └── lazy_specs # Your plugin specs go here.
+  │     └── init.lua # Optional top-level module returning a list of specs
+  │     └── neorg.lua # Single spec
+  │     └── sweetie.lua
+  ├── init.lua
 ```
 
 Or
 
-```lua
-vim.g.rocks_nvim = {
-    -- ...
-    lz_spec = "lazy_specs", -- Spec modules in nvim/lua/lazy_specs/<spec>.lua
-}
+
+```sh
+── nvim
+  ├── lua
+  │  └── lazy_specs.lua # Optional top-level module returning a list of specs
+  ├── init.lua
 ```
+
+- See [the `lz.n` documentation](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#structuring-your-plugins).
+- The Lua plugins specs must be configured according to
+  the [`lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec).
+
+> [!IMPORTANT]
+>
+> If you use a module to import your plugin specs
+> and you also use `rocks-config.nvim`,
+> the `rocks-lazy` `import` module name
+> **must not clash** with the `rocks-config` `plugins_dir`.
 
 > [!TIP]
 >

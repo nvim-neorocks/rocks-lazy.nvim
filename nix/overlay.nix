@@ -109,6 +109,41 @@
           + " "
           + ''--set NVIM_APPNAME "nvimrocks"'';
       });
+
+  nvim-nightly = final.neovim-nightly;
+
+  mkNeorocksTest = {
+    name,
+    nvim ? final.neovim-unwrapped,
+    extraPkgs ? [],
+  }: let
+    nvim-wrapped = final.pkgs.wrapNeovim nvim {
+      configure = {
+        packages.myVimPackage = {
+          start = [];
+        };
+      };
+    };
+  in
+    final.pkgs.neorocksTest {
+      inherit name;
+      pname = "rocks-lazy.nvim";
+      src = self;
+      neovim = nvim-wrapped;
+      luaPackages = ps: [
+        luajitPackages.lz-n
+        luajitPackages.rocks-nvim
+      ];
+
+      preCheck = ''
+        export HOME=$(realpath .)
+      '';
+
+      buildPhase = ''
+        mkdir -p $out
+        cp -r spec $out
+      '';
+    };
 in {
   inherit
     lua5_1
@@ -129,4 +164,10 @@ in {
     };
 
   rocks-lazy-nvim = lua51Packages.rocks-lazy-nvim;
+
+  nvim-stable-tests = mkNeorocksTest {name = "neovim-stable-tests";};
+  nvim-nightly-tests = mkNeorocksTest {
+    name = "neovim-nightly-tests";
+    nvim = nvim-nightly;
+  };
 }
