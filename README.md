@@ -65,8 +65,15 @@ and you are good to go!
 
 ### Via `rocks.toml`
 
-With this module installed, you can add the following fields to a `[plugins]` entry
-in your `rocks.toml`:
+With this module installed, you can add the fields that tell `rocks-lazy.nvim`
+how to lazy-load to a `[plugins]` entry in your `rocks.toml`.
+
+> [!IMPORTANT]
+>
+> Because rocks.nvim currently does not have an API to hook into plugin loading[^1],
+> you must set `opt = true` for any plugins you want to lazy-load.
+
+[^1]: This may change as rocks.nvim matures.
 
 #### `event`
 
