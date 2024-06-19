@@ -269,6 +269,13 @@ Or
 > your plugin specs.
 > `rocks-lazy.nvim` will merge the resulting specs.
 
+## :electric_plug: `rocks-config` interoperability
+
+If you are using `rocks-config.nvim >= 2.0.0`,
+it will not load configs for any `opt` plugins.
+`rocks-lazy` will use the `rocks-config` API to load them in the
+`lz.n.PluginSpec.before` hooks.
+
 ## :book: License
 
 `rocks-lazy.nvim` is licensed under [GPLv3](./LICENSE).
