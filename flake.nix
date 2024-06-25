@@ -14,7 +14,7 @@
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
 
     rocks-nvim-flake = {
-      url = "github:nvim-neorocks/rocks.nvim/api-toml-modifiers"; # TODO: back to master
+      url = "github:nvim-neorocks/rocks.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
