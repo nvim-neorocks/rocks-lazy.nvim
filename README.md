@@ -52,6 +52,13 @@ the [`lz.n`](https://github.com/nvim-neorocks/lz.n) library.
 > call to a heavy `setup` function,
 > consider opening an issue on the plugin's issue tracker.
 
+> [!IMPORTANT]
+>
+> With luarocks, *libraries* do not have a meaningful impact on startup time
+> and [don't need to be lazy-loaded](https://github.com/nvim-neorocks/rocks.nvim?tab=readme-ov-file#a-note-on-loading-rocks).
+>
+> This plugin handles lazy-loading of *plugin* initialization scripts.
+
 ## :pencil: Requirements
 
 - An up-to-date `rocks.nvim`.
