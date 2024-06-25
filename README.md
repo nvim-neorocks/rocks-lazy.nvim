@@ -82,13 +82,12 @@ Example:
 ```toml
 [plugins.nvim-cmp]
 version = "scm"
-opt = true
 event = "InsertEnter"
 ```
 
 ```toml
 [plugins]
-nvim-cmp = { version = "scm", opt = true, event = "InsertEnter" }
+nvim-cmp = { version = "scm", event = "InsertEnter" }
 ```
 
 #### `cmd`
@@ -102,13 +101,12 @@ Example:
 ```toml
 [plugins."telescope.nvim"]
 version = "0.1.8"
-opt = true
 cmd = "Telescope"
 ```
 
 ```toml
 [plugins]
-"telescope.nvim" = { version = "0.1.8", opt = true, cmd = "Telescope" }
+"telescope.nvim" = { version = "0.1.8", cmd = "Telescope" }
 ```
 
 #### `ft`
@@ -122,13 +120,12 @@ Example:
 ```toml
 [plugins.neorg]
 version = "8.0.0"
-opt = true
 ft = "norg"
 ```
 
 ```toml
 [plugins]
-neorg = { version = "8.0.0", opt = true, ft = "norg" }
+neorg = { version = "8.0.0", ft = "norg" }
 ```
 
 #### `keys`
@@ -157,18 +154,16 @@ Examples:
 ```toml
 [plugins."neo-tree.nvim"]
 version = "scm"
-opt = true
 keys = { lhs = "<leader>ft", rhs = "<CMD>Neotree toggle<CR>", desc = "NeoTree toggle" }
 
 [plugins."dial.nvim"]
 version = "0.4.0"
-opt = true
 keys = ["<C-a>", { lhs = "<C-x>", mode = "n" }]
 ```
 
 ```toml
 [plugins]
-"neo-tree.nvim" = { version = "scm", opt = true, keys = { "<leader>ft", "<CMD>Neotree toggle<CR>", desc = "NeoTree toggle" } }
+"neo-tree.nvim" = { version = "scm", keys = { "<leader>ft", "<CMD>Neotree toggle<CR>", desc = "NeoTree toggle" } }
 ```
 
 #### `colorscheme`
@@ -182,7 +177,6 @@ Example:
 ```toml
 [plugins."kanagawa.nvim"]
 version = "1.0.0"
-opt = true
 colorscheme = [
   "kanagawa",
   "kanagawa-dragon",
@@ -193,7 +187,7 @@ colorscheme = [
 
 ```toml
 [plugins]
-"sweetie.nvim" = { version = "1.0.0", opt = true, colorscheme = "sweetie" }
+"sweetie.nvim" = { version = "1.0.0", colorscheme = "sweetie" }
 ```
 
 > [!TIP]
@@ -205,7 +199,6 @@ colorscheme = [
 > ```toml
 > [plugins."telescope.nvim"]
 > version = "0.1.8"
-> opt = true
 > cmd = "Telescope"
 > keys = [ { lhs = "<leader>t", rhs = "<CMD>Telescope<CR>" } ]
 > ```
