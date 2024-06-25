@@ -32,8 +32,8 @@
 ## :star2: Summary
 
 `rocks-lazy.nvim` is a rocks.nvim module that helps you lazy-load
-your `opt` rocks.nvim plugins
-using the [`lz.n`](https://github.com/nvim-neorocks/lz.n) library.
+your rocks.nvim plugins using
+the [`lz.n`](https://github.com/nvim-neorocks/lz.n) library.
 
 > [!NOTE]
 >
@@ -67,13 +67,6 @@ and you are good to go!
 
 With this module installed, you can add the fields that tell `rocks-lazy.nvim`
 how to lazy-load to a `[plugins]` entry in your `rocks.toml`.
-
-> [!IMPORTANT]
->
-> Because rocks.nvim currently does not have an API to hook into plugin loading[^1],
-> you must set `opt = true` for any plugins you want to lazy-load.
-
-[^1]: This may change as rocks.nvim matures.
 
 #### `event`
 
@@ -155,9 +148,9 @@ Where `rocks.lazy.KeysSpec` is a table with the following fields:
 >
 > - If unspecified, the default `mode` is `n`.
 > - The `lhs` and `rhs` fields differ
->   from [the `lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec)[^2].
+>   from [the `lz.n.PluginSpec`](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec)[^1].
 
-[^2]: This is because toml tables are stricter than Lua tables.
+[^1]: This is because toml tables are stricter than Lua tables.
 
 Examples:
 
@@ -221,6 +214,11 @@ colorscheme = [
 
 If you prefer using Lua for configuration,
 you can add a `import` option to your `rocks.toml`:
+
+> [!IMPORTANT]
+>
+> If you use Lua to configure lazy-loading, you must set `opt = true`
+> in your rocks.toml entries.
 
 ```toml
 [rocks_lazy]

@@ -14,7 +14,7 @@
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
 
     rocks-nvim-flake = {
-      url = "github:nvim-neorocks/rocks.nvim";
+      url = "github:nvim-neorocks/rocks.nvim/api-toml-modifiers"; # TODO: back to master
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -65,9 +65,8 @@
 
         luarc = pkgs.mk-luarc {
           nvim = pkgs.neovim-nightly;
-          neodev-types = "nightly";
           plugins = with pkgs.lua51Packages; [
-            rocks-nvim
+            rocks-nvim-flake.packages.${system}.rocks-nvim
             lz-n
           ];
         };
@@ -92,7 +91,7 @@
           };
         };
 
-        devShell = pkgs.nvim-nightly-tests.overrideAttrs (oa: {
+        devShell = pkgs.mkShell {
           name = "rocks-lazy.nvim devShell";
           shellHook = ''
             ${pre-commit-check.shellHook}
@@ -100,12 +99,11 @@
           '';
           buildInputs =
             self.checks.${system}.pre-commit-check.enabledPackages
-            ++ oa.buildInputs
             ++ (with pkgs; [
-              busted-nightly
+              busted-nlua
               lua-language-server
             ]);
-        });
+        };
       in {
         packages = rec {
           default = neovim-with-rocks;
