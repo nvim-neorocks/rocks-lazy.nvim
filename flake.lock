@@ -1738,11 +1738,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1719616919,
-        "narHash": "sha256-F5ekIbu/956vjoN6RlV1ROrPOiL9+TPBBgo/NEhGNT0=",
+        "lastModified": 1719668543,
+        "narHash": "sha256-nugOdSgZtfxoKUdjOQeVJta7TqaFqsEE29hiMYebyqc=",
         "owner": "nvim-neorocks",
         "repo": "rocks.nvim",
-        "rev": "3b626fd1fe3b3529aa0ed961c7113f4bbbd9da83",
+        "rev": "f74407a52c920a0a7eb8a70b6ac079dca037dc5c",
         "type": "github"
       },
       "original": {
