@@ -1,33 +1,13 @@
 {
   self,
-  rocks-nvim-flake,
+  inputs,
 }: final: prev: let
   name = "rocks-lazy.nvim";
 
   luaPackage-override = luaself: luaprev: {
-    rocks-nvim = rocks-nvim-flake.packages.${final.system}.rocks-nvim;
+    rocks-nvim = inputs.rocks-nvim-flake.packages.${final.system}.rocks-nvim;
 
-    lz-n = luaself.callPackage ({
-      buildLuarocksPackage,
-      fetchurl,
-      fetchzip,
-      luaOlder,
-    }:
-      buildLuarocksPackage {
-        pname = "lz.n";
-        version = "1.2.4-1";
-        knownRockspec =
-          (fetchurl {
-            url = "mirror://luarocks/lz.n-1.2.4-1.rockspec";
-            sha256 = "sha256-DR0wr7wczl0P1PEMDSc9w9gU30KstX/rWBjAcx97k7A=";
-          })
-          .outPath;
-        src = fetchzip {
-          url = "https://github.com/nvim-neorocks/lz.n/archive/v1.2.4.zip";
-          sha256 = "sha256-T4gRlf7GoiPhwvQnvomKLU4y21v1zFm3YcKvsdgkSds=";
-        };
-        disabled = luaOlder "5.1";
-      }) {};
+    lz-n = inputs.lz-n-flake.packages.${final.system}.lz-n-luaPackage;
 
     rocks-lazy-nvim = luaself.callPackage ({
       luaOlder,
@@ -58,9 +38,9 @@
   luajitPackages = final.luajit.pkgs;
 
   neovim-with-rocks = let
-    rocks = rocks-nvim-flake.packages.${final.system}.rocks-nvim;
+    rocks = inputs.rocks-nvim-flake.packages.${final.system}.rocks-nvim;
     rocks-lazy = final.luajitPackages.rocks-lazy-nvim;
-    lz-n = final.luajitPackages.lz-n;
+    lz-n = inputs.lz-n-flake.packages.${final.system}.lz-n-luaPackage;
     neovimConfig = final.neovimUtils.makeNeovimConfig {
       withPython3 = true;
       viAlias = false;

@@ -63,10 +63,13 @@
           ];
         };
 
+        rocks-nvim = rocks-nvim-flake.packages.${system}.rocks-nvim;
+        lz-n = lz-n-flake.packages.${system}.lz-n-luaPackage;
+
         luarc = pkgs.mk-luarc {
           nvim = pkgs.neovim-nightly;
-          plugins = with pkgs.lua51Packages; [
-            rocks-nvim-flake.packages.${system}.rocks-nvim
+          plugins = [
+            rocks-nvim
             lz-n
           ];
         };
@@ -102,6 +105,8 @@
             ++ (with pkgs; [
               busted-nlua
               lua-language-server
+              rocks-nvim
+              lz-n
             ]);
         };
       in {
@@ -129,7 +134,7 @@
         };
       };
       flake = {
-        overlays.default = import ./nix/overlay.nix {inherit self rocks-nvim-flake;};
+        overlays.default = import ./nix/overlay.nix {inherit self inputs;};
       };
     };
 }

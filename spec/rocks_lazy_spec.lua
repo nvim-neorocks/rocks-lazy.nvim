@@ -2,6 +2,8 @@ vim.g.lz_n = {
     load = function() end,
 }
 
+vim.cmd.packadd = function() end
+
 local tempdir = vim.fn.tempname()
 local config_path = vim.fs.joinpath(tempdir, "rocks.toml")
 
