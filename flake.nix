@@ -113,7 +113,7 @@
         packages = rec {
           default = neovim-with-rocks;
           neovim-with-rocks = pkgs.neovim-with-rocks;
-          # rocks-lazy-nvim = pkgs.lua51Packages.rocks-lazy-nvim;
+          rocks-lazy-nvim = pkgs.luajitPackages.rocks-lazy-nvim;
         };
 
         devShells = {
