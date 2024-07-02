@@ -31,11 +31,11 @@
   lua5_1 = prev.lua5_1.override {
     packageOverrides = luaPackage-override;
   };
-  lua51Packages = final.lua5_1.pkgs;
+  lua51Packages = prev.lua51Packages // final.lua5_1.pkgs;
   luajit = prev.luajit.override {
     packageOverrides = luaPackage-override;
   };
-  luajitPackages = final.luajit.pkgs;
+  luajitPackages = prev.luajitPackages // final.luajit.pkgs;
 
   neovim-with-rocks = let
     rocks = inputs.rocks-nvim-flake.packages.${final.system}.rocks-nvim;
@@ -144,8 +144,6 @@ in {
         src = self;
       };
     };
-
-  rocks-lazy-nvim = lua51Packages.rocks-lazy-nvim;
 
   nvim-stable-tests = mkNeorocksTest {name = "neovim-stable-tests";};
   nvim-nightly-tests = mkNeorocksTest {
