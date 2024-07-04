@@ -11,7 +11,7 @@ function rocks_lazy.load()
     local has_rocks_config, rocks_config = pcall(require, "rocks-config")
     ---@param name string
     local config_hook = function(name)
-        if has_rocks_config and type(rocks_config.configure) == "function"
+        if has_rocks_config and type(rocks_config.configure) == "function" then
             pcall(vim.cmd.packadd, { name, bang = true })
             rocks_config.configure(name)
         end
