@@ -209,6 +209,8 @@ colorscheme = [
 > cmd = "Telescope"
 > keys = [ { lhs = "<leader>t", rhs = "<CMD>Telescope<CR>" } ]
 > ```
+>
+> Whichever event occurs first will load the plugin.
 
 ### Lua configuration
 
