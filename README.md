@@ -25,10 +25,6 @@
 
 [![LuaRocks][luarocks-shield]][luarocks-url]
 
-> [!WARNING]
->
-> This module is **A WORK IN PROGRESS** and does not have a stable release yet.
-
 ## :star2: Summary
 
 `rocks-lazy.nvim` is a rocks.nvim module that helps you lazy-load
