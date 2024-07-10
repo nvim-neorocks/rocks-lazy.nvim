@@ -263,7 +263,9 @@ Or
 >
 > You can use both `rocks.toml` entries and a Lua config to configure
 > your plugin specs.
-> `rocks-lazy.nvim` will merge the resulting specs.
+> `rocks-lazy.nvim` will extend[^2] the rocks.toml specs with the imported ones.
+
+[^2]: Duplicate specs in the Lua configs will overwrite existing ones.
 
 ## :electric_plug: `rocks-config` interoperability
 
