@@ -215,8 +215,12 @@ you can add a `import` option to your `rocks.toml`:
 
 > [!IMPORTANT]
 >
-> If you use Lua to configure lazy-loading, you must set `opt = true`
-> in your rocks.toml entries.
+> - If you use Lua to configure lazy-loading, you must set `opt = true`
+>   in your rocks.toml entries.
+> - Lua specs do not automatically
+>   integrate with rocks-config.nvim.
+>   You [can do so manually](https://github.com/nvim-neorocks/rocks-config.nvim?tab=readme-ov-file#load_opt_plugins)
+>   in the `before` hook.
 
 ```toml
 [rocks_lazy]
