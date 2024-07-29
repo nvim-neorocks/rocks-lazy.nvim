@@ -4,18 +4,30 @@ local rocks_lazy = {}
 
 function rocks_lazy.load()
     local api = require("rocks.api")
+    local log = require("rocks.log")
     local lz_n = require("lz.n")
 
     local user_rocks = api.get_user_rocks()
 
     local has_rocks_config, rocks_config = pcall(require, "rocks-config")
-    ---@param name string
-    local config_hook = function(name)
-        if has_rocks_config and type(rocks_config.configure) == "function" then
-            pcall(vim.cmd.packadd, { name, bang = true })
-            rocks_config.configure(name)
-        end
-    end
+
+    local config_hook = has_rocks_config
+            and type(rocks_config.configure) == "function"
+            ---@param plugin lz.n.Plugin
+            and function(plugin)
+                local rock_spec = user_rocks[plugin.name]
+                if rock_spec then
+                    pcall(vim.cmd.packadd, { plugin.name, bang = true })
+                    rocks_config.configure(rock_spec)
+                else
+                    log.warn(
+                        ("rocks-lazy: skipping rocks-config hook because %s not found in user rocks."):format(
+                            plugin.name
+                        )
+                    )
+                end
+            end
+        or function(_) end
 
     --- HACK: For some reason, if a RockSpec contains a list
     --- (e.g. colorscheme = [ .. ]) then vim.deepcopy errors
