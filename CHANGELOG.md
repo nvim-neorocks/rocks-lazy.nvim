@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.0.0...v1.0.1) (2024-07-29)
+
+
+### Bug Fixes
+
+* rocks-config integration ([#9](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/9)) ([8e4de29](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/8e4de29933e886a912cc8ef02060fa24d5e83503))
+
 ## 1.0.0 (2024-07-04)
 
 
