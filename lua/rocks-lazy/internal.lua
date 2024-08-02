@@ -18,7 +18,18 @@ function rocks_lazy.load()
                 local rock_spec = user_rocks[plugin.name]
                 if rock_spec then
                     pcall(vim.cmd.packadd, { plugin.name, bang = true })
-                    rocks_config.configure(rock_spec)
+                    rocks_config.configure(
+                        rock_spec,
+                        ---@param items? rock_name[]
+                        function(items)
+                            vim
+                                .iter(items or {})
+                                ---@param item rock_name
+                                :each(function(item)
+                                    pcall(vim.cmd.packadd, { item, bang = true })
+                                end)
+                        end
+                    )
                 else
                     log.warn(
                         ("rocks-lazy: skipping rocks-config hook because %s not found in user rocks."):format(
