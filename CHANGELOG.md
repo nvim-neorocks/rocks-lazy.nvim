@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.0.1...v1.1.0) (2024-09-16)
+
+
+### Features
+
+* support lazy-loading rocks-config.nvim bundles ([#11](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/11)) ([c917d4b](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/c917d4bccfa315c18fffb05d1258f3825f2914eb))
+
 ## [1.0.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.0.0...v1.0.1) (2024-07-29)
 
 
