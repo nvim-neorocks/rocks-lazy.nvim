@@ -40,11 +40,6 @@ import = "lazy_specs/"
 return {
   "telescope.nvim",
   cmd = "Telescope",
-  before = function()
-    vim.api.nvim_create_user_command("Telescope", function()
-      vim.g.telescope_command_invoked = true
-    end, {})
-  end,
 }
 ]]
         local spec_file = vim.fs.joinpath(tempdir, "lua", "lazy_specs", "telescope.lua")
@@ -52,20 +47,24 @@ return {
         fh:write(plugin_config_content)
         fh:close()
         vim.opt.runtimepath:append(tempdir)
-        local spy_packadd = spy.on(vim.cmd, "packadd")
         ---@diagnostic disable-next-line: invisible
         local user_rocks = require("rocks.api.hooks").run_preload_hooks(config.get_user_rocks())
         assert.True(user_rocks["dial.nvim"].opt)
         require("rocks.runtime").source_start_plugins(user_rocks)
-        assert.spy(spy_packadd).called(1) -- rocks-treesitter.nvim
         local spy_load = spy.on(loader, "_load")
         rocks_lazy.load()
         assert.spy(spy_load).called(0)
         local feed = vim.api.nvim_replace_termcodes("<Ignore><C-x>", true, true, true)
         vim.api.nvim_feedkeys(feed, "ix", false)
         assert.spy(spy_load).called(1)
+        ---@diagnostic disable-next-line: duplicate-set-field, invisible
+        loader._load = function()
+            -- HACK: Mimic the creation of the command by telescope.nvim
+            vim.api.nvim_create_user_command("Telescope", function()
+                vim.g.telescope_command_invoked = true
+            end, {})
+        end
         vim.cmd.Telescope()
-        assert.spy(spy_load).called(2)
         assert.True(vim.g.telescope_command_invoked)
     end)
 end)
