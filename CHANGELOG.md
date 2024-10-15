@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.0...v1.1.1) (2024-10-15)
+
+
+### Bug Fixes
+
+* bump lz.n dependency with fix for `beforeAll` hook ([#13](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/13)) ([209f265](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/209f26526801527321dd98933676a1c83bb05694))
+
 ## [1.1.0](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.0.1...v1.1.0) (2024-09-16)
 
 
