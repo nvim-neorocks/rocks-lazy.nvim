@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.1...v1.1.2) (2025-01-25)
+
+
+### Bug Fixes
+
+* **deps:** bump `lz.n` minimum version requirement ([#17](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/17)) ([5e49a55](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/5e49a550cd2a068b2e0e5f76382bec5afd0c48cc))
+
 ## [1.1.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.0...v1.1.1) (2024-10-15)
 
 
