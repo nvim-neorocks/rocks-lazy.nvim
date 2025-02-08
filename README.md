@@ -244,7 +244,6 @@ to your `nvim` config, with a lua script for each plugin.
 
 Or
 
-
 ```sh
 ── nvim
   ├── lua
@@ -277,6 +276,12 @@ If you are using `rocks-config.nvim >= 2.0.0`,
 it will not load configs for any `opt` plugins.
 `rocks-lazy` will use the `rocks-config` API to load them in the
 `lz.n.PluginSpec.before` hooks.
+
+> [!TIP]
+>
+> If you use Lua to configure lazy-loading, you can invoke the default
+> [`before` hook](https://github.com/nvim-neorocks/lz.n?tab=readme-ov-file#plugin-spec)
+> by calling `require("rocks-lazy").default_before_hook(plugin)`.
 
 ## :book: License
 

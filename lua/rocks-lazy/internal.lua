@@ -1,6 +1,8 @@
----@mod rocks-lazy.internal lazy-loading module for rocks.nvim
+---@mod rocks-lazy.internal lazy-loading module for rocks.nvim (internal)
 
 local rocks_lazy = {}
+
+rocks_lazy.config_hook = function(_) end
 
 function rocks_lazy.load()
     local api = require("rocks.api")
@@ -11,34 +13,31 @@ function rocks_lazy.load()
 
     local has_rocks_config, rocks_config = pcall(require, "rocks-config")
 
-    local config_hook = has_rocks_config
-            and type(rocks_config.configure) == "function"
-            ---@param plugin lz.n.Plugin
-            and function(plugin)
-                local rock_spec = user_rocks[plugin.name]
-                if rock_spec then
-                    pcall(vim.cmd.packadd, { plugin.name, bang = true })
-                    rocks_config.configure(
-                        rock_spec,
-                        ---@param items? rock_name[]
-                        function(items)
-                            vim
-                                .iter(items or {})
-                                ---@param item rock_name
-                                :each(function(item)
-                                    pcall(vim.cmd.packadd, { item, bang = true })
-                                end)
-                        end
-                    )
-                else
-                    log.warn(
-                        ("rocks-lazy: skipping rocks-config hook because %s not found in user rocks."):format(
-                            plugin.name
-                        )
-                    )
-                end
+    if has_rocks_config and type(rocks_config.configure) == "function" then
+        ---@param plugin lz.n.Plugin
+        rocks_lazy.config_hook = function(plugin)
+            local rock_spec = user_rocks[plugin.name]
+            if rock_spec then
+                pcall(vim.cmd.packadd, { plugin.name, bang = true })
+                rocks_config.configure(
+                    rock_spec,
+                    ---@param items? rock_name[]
+                    function(items)
+                        vim
+                            .iter(items or {})
+                            ---@param item rock_name
+                            :each(function(item)
+                                pcall(vim.cmd.packadd, { item, bang = true })
+                            end)
+                    end
+                )
+            else
+                log.warn(
+                    ("rocks-lazy: skipping rocks-config hook because %s not found in user rocks."):format(plugin.name)
+                )
             end
-        or function(_) end
+        end
+    end
 
     --- HACK: For some reason, if a RockSpec contains a list
     --- (e.g. colorscheme = [ .. ]) then vim.deepcopy errors
@@ -92,7 +91,7 @@ function rocks_lazy.load()
             ---@type lz.n.PluginSpec
             return {
                 rock.name,
-                before = config_hook,
+                before = rocks_lazy.config_hook,
                 lazy = rock.opt,
                 event = clone_toml_list(rock.event),
                 cmd = clone_toml_list(rock.cmd),
