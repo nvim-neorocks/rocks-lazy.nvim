@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.2...v1.2.0) (2025-02-08)
+
+
+### Features
+
+* expose default `before` hook ([#20](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/20)) ([7eaf5ec](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/7eaf5ec2947f165b6d7cb56caa4520ab0cbfdc09))
+
 ## [1.1.2](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.1...v1.1.2) (2025-01-25)
 
 
