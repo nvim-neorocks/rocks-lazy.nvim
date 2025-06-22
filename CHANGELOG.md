@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.2.0...v1.2.1) (2025-06-22)
+
+
+### Bug Fixes
+
+* incorrect use of rocks-config API ([#23](https://github.com/nvim-neorocks/rocks-lazy.nvim/issues/23)) ([d9fa3a1](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/d9fa3a1fd442bae322de37363023c1a8e3614dc9))
+
 ## [1.2.0](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.1.2...v1.2.0) (2025-02-08)
 
 
