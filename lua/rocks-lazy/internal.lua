@@ -14,23 +14,25 @@ function rocks_lazy.load()
     local has_rocks_config, rocks_config = pcall(require, "rocks-config")
 
     if has_rocks_config and type(rocks_config.configure) == "function" then
+        rocks_config = require("rocks-config")
         ---@param plugin lz.n.Plugin
         rocks_lazy.config_hook = function(plugin)
             local rock_spec = user_rocks[plugin.name]
+            ---@cast rock_spec rocks-config.RockSpec
             if rock_spec then
                 pcall(vim.cmd.packadd, { plugin.name, bang = true })
-                rocks_config.configure(
-                    rock_spec,
-                    ---@param items? rock_name[]
-                    function(items)
+                ---@type rocks-config.configure.Opts
+                local opts = {
+                    load_bundle_pre = function(items)
                         vim
                             .iter(items or {})
                             ---@param item rock_name
                             :each(function(item)
                                 pcall(vim.cmd.packadd, { item, bang = true })
                             end)
-                    end
-                )
+                    end,
+                }
+                rocks_config.configure(rock_spec, opts)
             else
                 log.warn(
                     ("rocks-lazy: skipping rocks-config hook because %s not found in user rocks."):format(plugin.name)

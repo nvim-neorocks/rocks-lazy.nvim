@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    rocks-config-nvim-flake = {
+      url = "github:nvim-neorocks/rocks-config.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lz-n-flake.url = "github:nvim-neorocks/lz.n";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -34,6 +39,7 @@
     neorocks,
     gen-luarc,
     rocks-nvim-flake,
+    rocks-config-nvim-flake,
     lz-n-flake,
     flake-parts,
     pre-commit-hooks,
@@ -64,12 +70,14 @@
         };
 
         rocks-nvim = rocks-nvim-flake.packages.${system}.rocks-nvim;
+        rocks-config-nvim = rocks-config-nvim-flake.packages.${system}.rocks-config-nvim;
         lz-n = lz-n-flake.packages.${system}.lz-n-luaPackage;
 
         luarc = pkgs.mk-luarc {
           nvim = pkgs.neovim-nightly;
           plugins = [
             rocks-nvim
+            rocks-config-nvim
             lz-n
           ];
         };
