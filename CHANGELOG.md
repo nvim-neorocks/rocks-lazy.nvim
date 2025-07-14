@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.2.1...v1.2.2) (2025-07-14)
+
+
+### Bug Fixes
+
+* **rockspec:** restrict lua version to 5.1 ([6b08b0c](https://github.com/nvim-neorocks/rocks-lazy.nvim/commit/6b08b0c6f11a60118d243a115e9098a56539f396))
+
 ## [1.2.1](https://github.com/nvim-neorocks/rocks-lazy.nvim/compare/v1.2.0...v1.2.1) (2025-06-22)
 
 
